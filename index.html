@@ -69,43 +69,57 @@
 		</div>
 	</div>
 </div>
-	 <script>
+<script>
 
-    document.getElementById("formulario").addEventListener("submit", function(e) {
+    const form = document.getElementById('miFormulario');
+
+    form.addEventListener('submit', e => {
 
       e.preventDefault();
 
 
 
-      const datos = {
+      const data = {
 
-        usuario: e.target.usuario.value,
+        usuario: form.usuario.value,
 
-        password: e.target.password.value
+        mensaje: form.mensaje.value
 
       };
 
-	    
 
-      fetch("https://script.google.com/macros/s/AKfycbxvtR9rxVuuAC5VSYsWMLPnDvpbinuEyzJKLMfW4-DnpWHJAwg-mNsXsFOqb8reiEnlUQ/exec", {
 
-        method: "POST",
+      fetch('TU_URL_DEL_WEB_APP', {
 
-        mode: "no-cors",
+        method: 'POST',
+
+        body: JSON.stringify(data),
 
         headers: {
 
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
 
-        },
+        }
 
-        body: JSON.stringify(datos)
+      })
+
+      .then(res => res.json())
+
+      .then(response => {
+
+        alert("Mensaje enviado con éxito!");
+
+        form.reset();
+
+      })
+
+      .catch(error => {
+
+        console.error('Error:', error);
+
+        alert("Hubo un error al enviar.");
 
       });
-
-
-
-      alert("Procesando..."); // Opcional: puedes redirigir o mostrar mensaje.
 
     });
 
